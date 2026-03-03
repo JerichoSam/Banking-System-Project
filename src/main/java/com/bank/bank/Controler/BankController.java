@@ -2,7 +2,6 @@ package com.bank.bank.Controler;
 
 
 import com.bank.bank.Entity.BankEntity;
-import com.bank.bank.Repository.BankRepository;
 import com.bank.bank.Service.BankService;
 import org.springframework.web.bind.annotation.*;
 
