@@ -47,4 +47,29 @@ public class BankService {
         bankRepository.deleteById(id);
     }
 
+    //WITHDRAW
+    public BankEntity withdraw(int id,double amount){
+        BankEntity bankEntity =bankRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Bank account not found"));
+
+        if(bankEntity.getBalance() < amount){
+            throw new RuntimeException("Insufficient Balance!!");
+        }
+
+        double newBalance = bankEntity.getBalance() - amount;
+        bankEntity.setBalance(newBalance);
+
+        return bankRepository.save(bankEntity);
+    }
+
+    //DEPOSIT
+    public BankEntity deposit(int id, double amount){
+        BankEntity bankEntity = bankRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Bank account not found"));
+
+        double newBalance = bankEntity.getBalance() + amount;
+        bankEntity.setBalance(newBalance);
+
+        return bankRepository.save(bankEntity);
+    }
 }
