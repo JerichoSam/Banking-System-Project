@@ -23,13 +23,13 @@ public class BankController {
     }
 
     //READ ALL
-    @GetMapping("/{id}")
+    @GetMapping
     public List<BankEntity> getAllBanks(){
         return bankService.getallBanks();
     }
 
     //READ By ID
-    @GetMapping
+    @GetMapping("/{id}")
     public BankEntity getBAnkById(@PathVariable int id){
         return bankService.getBankById(id)
                 .orElseThrow(() -> new RuntimeException("Bank not found!!"));
@@ -37,7 +37,7 @@ public class BankController {
 
     //UPDATE
     @PutMapping("/{id}")
-    public BankEntity updateBank(@PathVariable int id, BankEntity bank){
+    public BankEntity updateBank(@PathVariable int id,@RequestBody BankEntity bank){
         return bankService.updateBank(id, bank);
     }
 
@@ -46,5 +46,17 @@ public class BankController {
     public String deleteBank(@PathVariable int id){
         bankService.deleteBank(id);
         return "Bank Deleted Successfully";
+    }
+
+    //Withdraw
+    @PostMapping("/{id}/withdraw")
+    public BankEntity withdraw(@PathVariable int id, @RequestParam double amount) {
+        return bankService.withdraw(id, amount);
+    }
+
+    //DEPOSIT
+    @PostMapping("/{id}/deposit")
+    public BankEntity deposit(@PathVariable int id, @RequestParam double amount) {
+        return bankService.deposit(id, amount);
     }
 }
